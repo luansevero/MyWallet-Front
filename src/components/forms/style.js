@@ -17,11 +17,24 @@ const Container = styled.section`
         input,
         a{
             pointer-events:none;
+            color: #AFAFAF;
         }
         input{
             background-color: #e0e0e0;
             color: #AFAFAF;
         }
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover, 
+        input:-webkit-autofill:focus,
+        textarea:-webkit-autofill,
+        textarea:-webkit-autofill:hover,
+        textarea:-webkit-autofill:focus,
+        select:-webkit-autofill,
+        select:-webkit-autofill:hover,
+        select:-webkit-autofill:focus {
+            -webkit-text-fill-color: #AFAFAF;
+            -webkit-box-shadow: 0 0 0 50px #e0e0e0 inset !important;
+        }   
     }
 `
 
@@ -35,6 +48,7 @@ const Form = styled.form`
         border-radius:5px;
     }
     input::placeholder,
+    input,
     h2{
         font-size:20px;
         line-height:23px;
@@ -55,7 +69,19 @@ const Input = styled.input`
     &:last-of-type{
         margin-bottom: 0px;
     }
-    &:
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover, 
+    &:-webkit-autofill:focus,
+    textarea:-webkit-autofill,
+    textarea:-webkit-autofill:hover,
+    textarea:-webkit-autofill:focus,
+    select:-webkit-autofill,
+    select:-webkit-autofill:hover,
+    select:-webkit-autofill:focus {
+        -webkit-text-fill-color: #000000;
+        -webkit-box-shadow: 0 0 0 50px #ffffff inset;
+    }   
+
 `
 const Button = styled.button`
     display:flex;

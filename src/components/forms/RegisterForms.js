@@ -4,32 +4,43 @@ import { Link } from 'react-router-dom';
 
 import { Container, Form, Input, Button} from './style';
 
-export default function LoginForm() {
-    const [loginData, setLoginData] = useState({
+export default function RegisterForm() {
+    const [registerData, setRegisterData] = useState({
+        name: "",
         email: "",
-        password: ""
+        password: "",
+        samePassword: ""
     });
     const [isDisable, setIsDisable] = useState("enabled");
 
-    function handleLogin(e) {
+    function handleRegister(e) {
         e.preventDefault();
-        setIsDisable("disabled")
+        setIsDisable("disabled");
         setInterval(() => setIsDisable("enabled"), 5000)
 
     };
 
     function handleInput(e) {
-        setLoginData({ ...loginData, [e.target.name]: e.target.value })
+        setRegisterData({ ...registerData, [e.target.name]: e.target.value })
     };
 
+    console.log(registerData)
     return (
         <Container className={isDisable}>
-            <Form onSubmit={handleLogin} >
+            <Form onSubmit={handleRegister} >
+            <Input
+                    type="name"
+                    placeholder="Nome"
+                    id="nameInput"
+                    value={registerData.name}
+                    name="name"
+                    onChange={handleInput}
+                />
                 <Input
                     type="email"
                     placeholder="E-mail"
                     id="emailInput"
-                    value={loginData.email}
+                    value={registerData.email}
                     name="email"
                     onChange={handleInput}
                 />
@@ -37,8 +48,16 @@ export default function LoginForm() {
                     type="password"
                     placeholder="Password"
                     id="passwordInput"
-                    value={loginData.password}
+                    value={registerData.password}
                     name="password"
+                    onChange={handleInput}
+                />
+                <Input
+                    type="password"
+                    placeholder="Confirme a senha"
+                    id="samePasswordInput"
+                    value={registerData.samePassword}
+                    name="samePassword"
                     onChange={handleInput}
                 />
                 <Button type="submit">{
@@ -52,8 +71,8 @@ export default function LoginForm() {
                         />
                 }</Button>
             </Form>
-            <Link to="/register">
-                <h3>Primeira vez? Cadastres-se</h3>
+            <Link to="/login">
+                <h3>Já tem uma conta? Entre agora!</h3>
             </Link>
         </Container>
     )
