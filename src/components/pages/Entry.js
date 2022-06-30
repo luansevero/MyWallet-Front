@@ -1,7 +1,6 @@
 import EntryForm from "../forms/EntryForm"
 
-import styled from "styled-components"
-import { Header } from '../headers/style.js'
+import { Header, Main } from "../wallet/style"
 
 export default function Entry(){
     return(
@@ -13,10 +12,3 @@ export default function Entry(){
         </Main>
     )
 }
-
-const Main = styled.main`
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    padding: 25px;
-`
