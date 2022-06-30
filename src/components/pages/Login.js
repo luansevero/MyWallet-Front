@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-import LogoHeader from "../LogoHeader"
+import LogoHeader from "../headers/LogoHeader"
 import LoginForm from "../forms/LoginForms"
 
 export default function Login(){

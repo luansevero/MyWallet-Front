@@ -49,6 +49,7 @@ const Form = styled.form`
     }
     input::placeholder,
     input,
+    span,
     h2{
         font-size:20px;
         line-height:23px;
@@ -83,6 +84,22 @@ const Input = styled.input`
     }   
 
 `
+
+const InputBox = styled.div`
+    position: relative;
+    span{
+        font-weight: 400;
+        color: #000000;
+        position: absolute;
+        top:calc((58px - 23px) / 2);
+        left: 15px;
+    }
+    input.filled{
+        padding-left: 50px;
+    }
+    margin-bottom: 15px;
+`
+
 const Button = styled.button`
     display:flex;
     align-items:center;
@@ -95,4 +112,4 @@ const Button = styled.button`
     }
 `
 
-export { Container, Form, Input, Button }
+export { Container, Form, Input, InputBox, Button }

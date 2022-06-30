@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-import logo from '../assets/MyWallet.png'
+import logo from '../../assets/MyWallet.png'
 
 export default function LogoHeader(){
     return(
