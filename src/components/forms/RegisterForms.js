@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { ThreeDots } from 'react-loader-spinner';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
 
 import { Container, Form, Input, Button} from './style';
 
@@ -12,12 +14,21 @@ export default function RegisterForm() {
         samePassword: ""
     });
     const [isDisable, setIsDisable] = useState("enabled");
+    const navigate = useNavigate();
 
     function handleRegister(e) {
         e.preventDefault();
         setIsDisable("disabled");
-        setInterval(() => setIsDisable("enabled"), 5000)
 
+        const promisse = axios.post("localstorage:5000/register", registerData);
+        promisse.then((res) => {
+            setIsDisable("enabled")
+            navigate('/login');
+        })
+        promisse.catch((erro) => {
+            alert('Registro não foi efetuado com sucesso')
+            setIsDisable("enabled")
+        })
     };
 
     function handleInput(e) {

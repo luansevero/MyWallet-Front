@@ -1,7 +1,9 @@
-import { useState } from 'react';
-import { ThreeDots } from 'react-loader-spinner';
-import { Link } from 'react-router-dom';
+import { useContext, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
+import { ThreeDots } from 'react-loader-spinner';
+import TokenContext from '../../contexts/TokenContext'
 import { Container, Form, Input, Button} from './style';
 
 export default function LoginForm() {
@@ -9,12 +11,29 @@ export default function LoginForm() {
         email: "",
         password: ""
     });
+    const { setToken, token } = useContext(TokenContext);
+    const navigate = useNavigate();
     const [isDisable, setIsDisable] = useState("enabled");
 
     function handleLogin(e) {
         e.preventDefault();
         setIsDisable("disabled")
-        setInterval(() => setIsDisable("enabled"), 5000)
+        const promisse = axios.post('localhost:5000/login', loginData);
+        promisse.then((res) => {
+            setToken({
+                headers:{
+                    Authorization: `Bearer ` + res.data.token
+                }
+            })
+            setIsDisable("enabled");
+            navigate('/wallet')
+        });
+        promisse.catch(() => {
+            setIsDisable("enabled");
+            window.alert('Email ou usuário errado');
+        })
+
+        
 
     };
 
