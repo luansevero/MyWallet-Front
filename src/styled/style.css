@@ -5,6 +5,8 @@
 body{
     font-family: 'Raleway', sans-serif;
 	background-color: #8c11be;
+	display:flex;
+	justify-content: center;
 }
 button,
 input{

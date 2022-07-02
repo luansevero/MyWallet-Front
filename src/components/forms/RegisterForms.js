@@ -19,16 +19,24 @@ export default function RegisterForm() {
     function handleRegister(e) {
         e.preventDefault();
         setIsDisable("disabled");
-
-        const promisse = axios.post("localstorage:5000/register", registerData);
-        promisse.then((res) => {
+        if(registerData.password === registerData.samePassword){
+            const promisse = axios.post("http://localhost:5000/register", {
+                name: registerData.name,
+                email: registerData.email,
+                password: registerData.password
+            });
+            promisse.then((res) => {
+                setTimeout(navigate('/login'), 500);
+            })
+            promisse.catch((erro) => {
+                console.log(erro)
+                alert('Registro não foi efetuado com sucesso')
+            })
+        } else {
             setIsDisable("enabled")
-            navigate('/login');
-        })
-        promisse.catch((erro) => {
-            alert('Registro não foi efetuado com sucesso')
-            setIsDisable("enabled")
-        })
+        }
+        
+       
     };
 
     function handleInput(e) {
@@ -73,7 +81,7 @@ export default function RegisterForm() {
                 />
                 <Button type="submit">{
                     isDisable !== "disabled"
-                        ? <h2>Entrar</h2>
+                        ? <h2>Cadastrar</h2>
                         : <ThreeDots
                             height="20"
                             width="70"

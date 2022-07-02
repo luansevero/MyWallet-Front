@@ -18,23 +18,25 @@ export default function LoginForm() {
     function handleLogin(e) {
         e.preventDefault();
         setIsDisable("disabled")
-        const promisse = axios.post('localhost:5000/login', loginData);
+        const promisse = axios.post('http://localhost:5000/login', loginData);
         promisse.then((res) => {
             setToken({
                 headers:{
                     Authorization: `Bearer ` + res.data.token
                 }
             })
-            setIsDisable("enabled");
-            navigate('/wallet')
-        });
-        promisse.catch(() => {
-            setIsDisable("enabled");
-            window.alert('Email ou usuário errado');
+            const HALF_SECOND = 500;
+            setTimeout(() => {
+                navigate('/wallet')
+                setIsDisable("enabled")
+            }, HALF_SECOND)
         })
-
+        promisse.catch(() => {
+            window.alert('Email ou usuário errado');
+            setIsDisable("enabled")
+        })
         
-
+        
     };
 
     function handleInput(e) {

@@ -21,6 +21,7 @@ const Header = styled.main`
 `
 const Main = styled.main`
     min-height: 100vh;
+    max-width: 375px;
     display: flex;
     flex-direction: column;
     padding: 25px;
