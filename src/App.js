@@ -12,7 +12,7 @@ import Edit from "./components/pages/Edit";
 
 export default function App() {
     const [isUserLoggedIn, setIsUserLoggedIn] = useState(false)
-    const [token, setToken] = useState(null);
+    const [token, setToken] = useState('');
 
     return (
         <TokenContext.Provider value={{setToken, token}}>

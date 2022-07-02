@@ -25,6 +25,7 @@ export default function LoginForm() {
                     Authorization: `Bearer ` + res.data.token
                 }
             })
+            console.log(res.data.token)
             const HALF_SECOND = 500;
             setTimeout(() => {
                 navigate('/wallet')
@@ -35,9 +36,9 @@ export default function LoginForm() {
             window.alert('Email ou usuário errado');
             setIsDisable("enabled")
         })
-        
-        
     };
+
+    console.log(loginData)
 
     function handleInput(e) {
         setLoginData({ ...loginData, [e.target.name]: e.target.value })

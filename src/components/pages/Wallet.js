@@ -2,20 +2,32 @@ import { useContext, useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom";
 import TokenContext from "../../contexts/TokenContext";
 import { Header, Main, WalletHistoric, WalletTransitions, ButtonContainer } from "../wallet/style"
+import axios from "axios";
 
 export default function Wallet(){
-    const [haveHistoric, setHaveHistoric] = useState('dontHave')
+    const [haveHistoric, setHaveHistoric] = useState('dontHave');
+    const [user, setUser] = useState('');
     const { token } = useContext(TokenContext);
-    
+    console.log(token)
     const navigate = useNavigate();
     useEffect(() => {
         if(!token){return navigate('/login')}
+        const promisse = axios.get('http://localhost:5000/wallet', token);
+        promisse.then((res) => {
+            setUser(res.data);
+            if(res.data.transactions.length !== 0){
+                setHaveHistoric('have');
+            }
+        })
+        promisse.catch((erro) => {
+            console.log(erro)
+        })
     }, [])
 
     return(
         <Main>
             <Header className="walletHeader">
-                <h1>Olá, Fulano</h1>
+                <h1>Olá, {user.name}</h1>
                 <ion-icon name="log-out-outline"></ion-icon>
             </Header>
             <WalletHistoric className={haveHistoric}>
