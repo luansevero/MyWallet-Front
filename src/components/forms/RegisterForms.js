@@ -26,14 +26,15 @@ export default function RegisterForm() {
                 password: registerData.password
             });
             promisse.then((res) => {
-                setTimeout(navigate('/login'), 500);
+                setTimeout(navigate('/login'), 2000);
             })
             promisse.catch((erro) => {
                 console.log(erro)
                 alert('Registro não foi efetuado com sucesso')
+                setIsDisable("enabled")
             })
         } else {
-            setIsDisable("enabled")
+            
         }
         
        

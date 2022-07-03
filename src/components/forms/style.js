@@ -105,10 +105,18 @@ const Button = styled.button`
     align-items:center;
     justify-content:center;
     background: #A328D6;
-    margin: 15px 0;
+    margin: 7.5px 0;
+    &:first-of-type{
+        margin-top: 15px;
+    }
+    &:last-of-type{
+        margin-back: 15px;
+    }
     h2{
         font-weight: 700;
         color: #FFFFFF;
+    }
+    &.cancel{
     }
 `
 

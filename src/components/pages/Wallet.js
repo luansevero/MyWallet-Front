@@ -4,17 +4,18 @@ import TokenContext from "../../contexts/TokenContext";
 import { Header, Main, WalletHistoric, WalletTransitions, ButtonContainer } from "../wallet/style"
 import axios from "axios";
 
+import WalletTransactionsHistory from "../wallet/WalletTransactions.js";
+
 export default function Wallet(){
-    const [haveHistoric, setHaveHistoric] = useState('dontHave');
-    const [user, setUser] = useState('');
+    const [haveHistoric, setHaveHistoric] = useState('have');
+    const [userWallet, setUserWallet] = useState([]);
     const { token } = useContext(TokenContext);
     console.log(token)
     const navigate = useNavigate();
     useEffect(() => {
-        if(!token){return navigate('/login')}
         const promisse = axios.get('http://localhost:5000/wallet', token);
         promisse.then((res) => {
-            setUser(res.data);
+            setUserWallet(res.data);
             if(res.data.transactions.length !== 0){
                 setHaveHistoric('have');
             }
@@ -22,17 +23,21 @@ export default function Wallet(){
         promisse.catch((erro) => {
             console.log(erro)
         })
+        
     }, [])
+    function isEmpty(){
+        console.log('Oi')
+    }
 
     return(
         <Main>
             <Header className="walletHeader">
-                <h1>Olá, {user.name}</h1>
-                <ion-icon name="log-out-outline"></ion-icon>
+                <h1>Olá, {userWallet.name}</h1>
+                <ion-icon name="log-out-outline" onClick={isEmpty}></ion-icon>
             </Header>
             <WalletHistoric className={haveHistoric}>
                 {  haveHistoric === 'have'
-                    ? <></>
+                    ? <WalletTransactionsHistory transactions={userWallet.transactions}/>
                     : <h2>Não há registro de entrada ou saída</h2>
                 }
             </WalletHistoric>
@@ -57,3 +62,5 @@ export default function Wallet(){
         </Main>
     )
 }
+
+/*transactions={userWallet.transactions}*/

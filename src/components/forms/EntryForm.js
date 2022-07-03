@@ -61,6 +61,9 @@ export default function EntryForm() {
                             ariaLabel='loading'
                         />
                 }</Button>
+                <Button className="cancel">
+                    <h2>Cancelar</h2>
+                </Button>
             </Form>
         </Container>
     )

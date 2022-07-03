@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
-const Header = styled.main`
+const Header = styled.header`
     display:flex;
     margin-bottom: 40px;
+    justify-content: space-between;
     h1{
         font-weight: 700;
         font-size: 26px;
@@ -16,7 +17,6 @@ const Header = styled.main`
     }
     &.walletHeader{
         margin-bottom: 20px;
-        justify-content: space-between;
     }
 `
 const Main = styled.main`
@@ -29,7 +29,10 @@ const Main = styled.main`
 
 const WalletHistoric = styled.section`
     display:flex;
+    flex-direction: column;
+    justify-content:space-between;
     margin-bottom: 15px;
+    padding: 10px;
     width: 326px;
     height: 446px;
     background: #FFFFFF;

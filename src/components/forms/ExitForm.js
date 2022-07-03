@@ -1,44 +1,76 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ThreeDots } from 'react-loader-spinner';
+import axios from 'axios';
+
+import TokenContext from '../../contexts/TokenContext';
 
 
 import { Container, Form, Input, InputBox, Button} from './style';
 
-export default function EntryForm() {
-    const [exitData, setExitData] = useState({
+export default function TransactionForm({transactionType}) {
+    const [transactionData, setTransactionData] = useState({
         value: "",
-        description: ""
+        description: "",
     });
     const [isDisable, setIsDisable] = useState("enabled");
-    const [isFilled, setIsFilled] = useState("")
+    const [isFilled, setIsFilled] = useState("");
+    const navigate = useNavigate();
+    const { token } = useContext(TokenContext);
 
-    function handleNewExit(e) {
+    async function handleNewExit(e) {
         e.preventDefault();
-        setIsDisable("disabled")
-        setInterval(() => setIsDisable("enabled"), 5000)
-
+        setIsDisable("disabled");
+        let transaction = transactionData;
+        if(transactionType === 'Exit'){
+            transaction = {...transactionData, value: - transactionData.value}
+        }
+        const promisse = axios.post("http://localhost:5000/wallet/exit", transaction, token)
+        promisse.then((res) => {
+            console.log('Sucesso')
+            setIsDisable("enabled")
+            navigate('/wallet')
+        })
+        promisse.catch((error) => {
+            console.log(error)
+            setIsDisable("enabled")
+        })
+        console.log(transaction)
+        setIsDisable("enabled")
     };
 
     function handleInput(e) {
-        setExitData({ ...exitData, [e.target.name]: e.target.value });
-        
+        if((e.target.name === 'value' && e.target.value != '-') || e.target.name === 'description'){
+            setTransactionData({ ...transactionData, [e.target.name]: e.target.value });
+        } 
     };
 
-    console.log(exitData)
+    function cancelTransaction(){
+        let answer = true
+        console.log('entrei')
+        if(transactionData.value.length !== 0 || transactionData.description.length !== 0){
+           answer = window.confirm('Tem certeza que deseja cancelar a transação?');
+        }
+        if(answer){
+            navigate('/wallet');
+        }
+    }
+
+    console.log(transactionData)
     return (
         <Container className={isDisable}>
-            <Form onSubmit={handleNewExit} >
+            <Form onSubmit={handleNewExit}>
                 <InputBox>
                     <Input
                         className={isFilled}
                         type="number"
                         placeholder="Valor"
                         id="valueInput"
-                        value={exitData.value}
+                        value={transactionData.value}
                         name="value"
                         onChange={handleInput}
                     />{
-                        exitData.value === ""
+                        transactionData.value === ""
                         ? <></>
                         : <span>R$</span>
                     }
@@ -47,13 +79,15 @@ export default function EntryForm() {
                     type="description"
                     placeholder="Descrição"
                     id="descriptionInput"
-                    value={exitData.description}
+                    value={transactionData.description}
                     name="description"
                     onChange={handleInput}
                 />
                 <Button type="submit">{
                     isDisable !== "disabled"
-                        ? <h2>Salvar entrada</h2>
+                        ? transactionType !== 'Exit'
+                            ? <h2>Salvar entrada</h2>
+                            : <h2>Salvar saída</h2>
                         : <ThreeDots
                             height="20"
                             width="70"
@@ -61,6 +95,9 @@ export default function EntryForm() {
                             ariaLabel='loading'
                         />
                 }</Button>
+                <Button >
+                    <h2>Cancelar</h2>
+                </Button>
             </Form>
         </Container>
     )
