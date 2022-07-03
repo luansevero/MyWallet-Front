@@ -7,18 +7,20 @@ import axios from "axios";
 import WalletTransactionsHistory from "../wallet/WalletTransactions.js";
 
 export default function Wallet(){
-    const [haveHistoric, setHaveHistoric] = useState('have');
+    const [haveHistoric, setHaveHistoric] = useState('dontHave');
     const [userWallet, setUserWallet] = useState([]);
-    const { token } = useContext(TokenContext);
+    const { setToken, token } = useContext(TokenContext);
     console.log(token)
     const navigate = useNavigate();
     useEffect(() => {
+        if(!token){return navigate('/login')}
         const promisse = axios.get('http://localhost:5000/wallet', token);
         promisse.then((res) => {
             setUserWallet(res.data);
-            if(res.data.transactions.length !== 0){
+            if(res.data.transactions.length > 0){
                 setHaveHistoric('have');
             }
+            console.log(res.data)
         })
         promisse.catch((erro) => {
             console.log(erro)
@@ -26,7 +28,10 @@ export default function Wallet(){
         
     }, [])
     function isEmpty(){
-        console.log('Oi')
+        if(window.confirm('Tem certeza que deseja sair da sua conta?')){
+            setToken("");
+            navigate('/login');
+        };
     }
 
     return(
@@ -37,7 +42,7 @@ export default function Wallet(){
             </Header>
             <WalletHistoric className={haveHistoric}>
                 {  haveHistoric === 'have'
-                    ? <WalletTransactionsHistory transactions={userWallet.transactions}/>
+                    ? <WalletTransactionsHistory transactions={userWallet.transactions}balance={userWallet.balance}/>
                     : <h2>Não há registro de entrada ou saída</h2>
                 }
             </WalletHistoric>

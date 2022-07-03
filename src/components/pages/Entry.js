@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import TokenContext from "../../contexts/TokenContext"
 
-import EntryForm from "../forms/EntryForm"
+import TransactionForm from "../forms/TransactionForm"
 
 import { Header, Main } from "../wallet/style"
 
@@ -19,7 +19,7 @@ export default function Entry(){
             <Header>
                 <h1>Nova entrada</h1>
             </Header>
-            <EntryForm />
+            <TransactionForm transactionType={'positive'} />
         </Main>
     )
 }

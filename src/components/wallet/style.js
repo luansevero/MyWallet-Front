@@ -31,6 +31,7 @@ const WalletHistoric = styled.section`
     display:flex;
     flex-direction: column;
     justify-content:space-between;
+    
     margin-bottom: 15px;
     padding: 10px;
     width: 326px;
@@ -49,6 +50,7 @@ const WalletHistoric = styled.section`
     }
     &.dontHave{
         justify-content:center;
+        align-items:center;
     }
     &.have{
 

@@ -1,17 +1,28 @@
 import styled from "styled-components"
 import Wallet from "../pages/Wallet"
 
-export default function WalletTransactionsHistory({ transactions }){
+export default function WalletTransactionsHistory({ transactions, balance }) {
     console.log(transactions)
-    return(
+    console.log(balance)
+    return (
         <>
             <WalletHistory>
-                
+                {transactions.map((transaction) => {
+                    return (
+                        <Transaction>
+                            <div>
+                                <span>{transaction.date}</span>
+                                <span>{transaction.description}</span>
+                            </div>
+                            <h3 className={transaction.type} >{transaction.value}</h3>
+                        </Transaction>
+                    )
+                })}
             </WalletHistory>
             <WalletBalance>
                 <>
-                <span>SALDO</span>
-                <span>VALOR</span>
+                    <span>SALDO</span>
+                    <span>{balance}</span>
                 </>
             </WalletBalance>
         </>
@@ -38,9 +49,13 @@ const Transaction = styled.li`
     & div span:nth-child(1){
         margin-right: 5px;
         color: #c6c6c6;
+        margin-right:5px;
     }
-    & div span:nth-child(1){
-        margin-right: 5px;
+    h3.positive{
+        color: #03AC00;
+    }
+    h3.negative{
+        color: #c70000;
     }
     margin-bottom: 11px;
     
@@ -60,20 +75,13 @@ const WalletBalance = styled.div`
     }
     span:nth-child(2){
         font-weight: 400;
-        color: #${props => props.xd ? 'ffffff' : '0000000'};
     }
 `
 
 /*
 
 {transactions.map((transaction)  => {
-                    <Transaction>
-                    <div>
-                        <span>{transaction.data}</span>
-                        <span>{transaction.description}</span>
-                    </div>
-                    <span isPositive={transaction.isEntry}>{transaction.value}</span>
-                </Transaction>
+                   
                 })}
 
                 */

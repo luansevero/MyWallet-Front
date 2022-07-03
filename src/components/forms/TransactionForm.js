@@ -12,7 +12,9 @@ export default function TransactionForm({transactionType}) {
     const [transactionData, setTransactionData] = useState({
         value: "",
         description: "",
+        type: transactionType
     });
+    console.log(transactionData)
     const [isDisable, setIsDisable] = useState("enabled");
     const [isFilled, setIsFilled] = useState("");
     const navigate = useNavigate();
