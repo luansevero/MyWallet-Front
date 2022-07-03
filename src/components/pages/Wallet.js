@@ -30,6 +30,7 @@ export default function Wallet(){
     function isEmpty(){
         if(window.confirm('Tem certeza que deseja sair da sua conta?')){
             setToken("");
+            localStorage.clear();
             navigate('/login');
         };
     }

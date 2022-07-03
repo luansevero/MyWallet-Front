@@ -4,6 +4,18 @@ const Container = styled.section`
     display:flex;
     align-items:center;
     flex-direction:column;
+    input, button{
+        width: 326px;
+        height: 58px;
+        border-radius:5px;
+    }
+    input::placeholder,
+    input,
+    span,
+    h2{
+        font-size:20px;
+        line-height:23px;
+    }
     a{  
         color: #FFFFFF;
         font-weight: 700;
@@ -36,24 +48,16 @@ const Container = styled.section`
             -webkit-box-shadow: 0 0 0 50px #e0e0e0 inset !important;
         }   
     }
+    &.transactionScreen{
+        justify-content:space-between;
+    }
 `
 
 const Form = styled.form`
     display:flex;
     align-items:center;
     flex-direction:column;
-    input, button{
-        width: 326px;
-        height: 58px;
-        border-radius:5px;
-    }
-    input::placeholder,
-    input,
-    span,
-    h2{
-        font-size:20px;
-        line-height:23px;
-    }
+
 
 `
 const Input = styled.input`

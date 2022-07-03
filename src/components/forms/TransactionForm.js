@@ -14,7 +14,6 @@ export default function TransactionForm({transactionType}) {
         description: "",
         type: transactionType
     });
-    console.log(transactionData)
     const [isDisable, setIsDisable] = useState("enabled");
     const [isFilled, setIsFilled] = useState("");
     const navigate = useNavigate();
@@ -24,25 +23,30 @@ export default function TransactionForm({transactionType}) {
         e.preventDefault();
         setIsDisable("disabled");
         let transaction = transactionData;
-        if(transactionType === 'Exit'){
-            transaction = {...transactionData, value: - transactionData.value}
-        }
         const promisse = axios.post("http://localhost:5000/wallet/exit", transaction, token)
         promisse.then((res) => {
-            console.log('Sucesso')
             setIsDisable("enabled")
             navigate('/wallet')
         })
         promisse.catch((error) => {
-            console.log(error)
             setIsDisable("enabled")
         })
-        console.log(transaction)
         setIsDisable("enabled")
     };
 
     function handleInput(e) {
-        if((e.target.name === 'value' && e.target.value != '-') || e.target.name === 'description'){
+        console.log(e.keycode)
+        var invalidChars = [
+            "-",
+            "+",
+            "e",
+          ];
+        e.target.addEventListener("keydown", function(e) {
+            if (invalidChars.includes(e.key)) {
+              e.preventDefault();
+            }
+          });
+        if((e.target.name === 'value' && e.target.value != '-' && e.target.value != '+') || e.target.name === 'description'){
             setTransactionData({ ...transactionData, [e.target.name]: e.target.value });
         } 
     };
@@ -58,24 +62,19 @@ export default function TransactionForm({transactionType}) {
         }
     }
 
-    console.log(transactionData)
     return (
-        <Container className={isDisable}>
+        <Container className={`transactionScreen ${isDisable}`}>
             <Form onSubmit={handleNewExit}>
                 <InputBox>
                     <Input
-                        className={isFilled}
+                        haveValue={transactionData}
                         type="number"
                         placeholder="Valor"
                         id="valueInput"
                         value={transactionData.value}
                         name="value"
                         onChange={handleInput}
-                    />{
-                        transactionData.value === ""
-                        ? <></>
-                        : <span>R$</span>
-                    }
+                    />
                 </InputBox>
                 <Input
                     type="description"
@@ -97,10 +96,10 @@ export default function TransactionForm({transactionType}) {
                             ariaLabel='loading'
                         />
                 }</Button>
-                <Button >
-                    <h2>Cancelar</h2>
-                </Button>
             </Form>
+            <Button onClick={cancelTransaction}>
+                    <h2>Cancelar</h2>
+            </Button>
         </Container>
     )
 }

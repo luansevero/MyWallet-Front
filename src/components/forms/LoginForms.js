@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -15,6 +15,26 @@ export default function LoginForm() {
     const navigate = useNavigate();
     const [isDisable, setIsDisable] = useState("enabled");
 
+    useEffect(() => {
+        const login = async() => {
+            try {
+                if(localStorage.getItem('MyWallet_acc') !== null){
+                    const userStorage = JSON.parse(localStorage.getItem('MyWallet_acc'));
+                    setIsDisable("disabled");
+                    setLoginData(userStorage)
+                    const response = await axios.post('http://localhost:5000/login', userStorage)
+                    setToken({headers:{
+                        Authorization: `Bearer ${response.data.token}`
+                   }})
+                   
+                    setIsDisable("enabled");
+                    navigate("/wallet");
+                    ;
+                }
+            } catch (error) {}};
+            login();
+    }, [])
+
     function handleLogin(e) {
         e.preventDefault();
         setIsDisable("disabled")
@@ -25,6 +45,7 @@ export default function LoginForm() {
                     Authorization: `Bearer ` + res.data.token
                 }
             })
+            localStorage.setItem('MyWallet_acc', JSON.stringify(loginData));
             console.log(res.data.token)
             const HALF_SECOND = 500;
             setTimeout(() => {

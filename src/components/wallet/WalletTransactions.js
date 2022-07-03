@@ -14,7 +14,9 @@ export default function WalletTransactionsHistory({ transactions, balance }) {
                                 <span>{transaction.date}</span>
                                 <span>{transaction.description}</span>
                             </div>
-                            <h3 className={transaction.type} >{transaction.value}</h3>
+                            <h3 className={transaction.type} type={transaction.type}>{transaction.value}</h3>
+
+                            {console.log(transaction.type === "positive")}
                         </Transaction>
                     )
                 })}
