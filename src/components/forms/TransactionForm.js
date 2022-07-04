@@ -16,13 +16,14 @@ export default function TransactionForm({transactionType}) {
     });
     let trueValue = 0
     const [isDisable, setIsDisable] = useState("enabled");
-    const [isFilled, setIsFilled] = useState("");
+    const [lock, isLock] = useState(false);
     const navigate = useNavigate();
     const { token } = useContext(TokenContext);
 
     async function handleNewExit(e) {
         e.preventDefault();
         setIsDisable("disabled");
+        setIsLock(true)
         let transaction = transactionData;
         let promisse;
         if(transactionType === "positive"){
@@ -34,12 +35,14 @@ export default function TransactionForm({transactionType}) {
         
         promisse.then((res) => {
             setIsDisable("enabled")
+            setIsLock(false)
             navigate('/wallet')
         })
         promisse.catch((error) => {
             setIsDisable("enabled")
+            setIsLock(false)
         })
-        setIsDisable("enabled")
+
     };
 
     function handleInput(e) {
@@ -79,7 +82,7 @@ export default function TransactionForm({transactionType}) {
                     name="description"
                     onChange={handleInput}
                 />
-                <Button type="submit" disabled={isDisable === "disabled"}>{
+                <Button type="submit" disabled={lock}>{
                     isDisable !== "disabled"
                         ? transactionType !== 'Exit'
                             ? <h2>Salvar entrada</h2>
