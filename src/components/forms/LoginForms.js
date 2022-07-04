@@ -96,7 +96,7 @@ export default function LoginForm() {
                 }</Button>
             </Form>
             <Link to="/register">
-                <h3>Primeira vez? Cadastres-se</h3>
+                <h3>Primeira vez? Cadastre-se</h3>
             </Link>
         </Container>
     )

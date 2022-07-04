@@ -91,7 +91,7 @@ export default function RegisterForm() {
                         />
                 }</Button>
             </Form>
-            <Link to="/login">
+            <Link to="/">
                 <h3>Já tem uma conta? Entre agora!</h3>
             </Link>
         </Container>
