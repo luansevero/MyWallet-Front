@@ -14,6 +14,7 @@ export default function TransactionForm({transactionType}) {
         description: "",
         type: transactionType
     });
+    let trueValue = 0
     const [isDisable, setIsDisable] = useState("enabled");
     const [isFilled, setIsFilled] = useState("");
     const navigate = useNavigate();
@@ -23,7 +24,19 @@ export default function TransactionForm({transactionType}) {
         e.preventDefault();
         setIsDisable("disabled");
         let transaction = transactionData;
-        const promisse = axios.post("http://localhost:5000/wallet/exit", transaction, token)
+        if(transactionType === "positive"){
+            if(transaction.value < 0){
+                transaction.value = transaction.value * -1
+            }
+        } else {
+            if(transaction.value > 0){
+                transaction.value = transaction.value * -1
+            }
+        }
+
+        
+        console.log(transaction.value)
+        const promisse = axios.post("http://localhost:5000/wallet/exit", {...transaction, value: Number(transaction.value)}, token)
         promisse.then((res) => {
             setIsDisable("enabled")
             navigate('/wallet')
@@ -35,25 +48,12 @@ export default function TransactionForm({transactionType}) {
     };
 
     function handleInput(e) {
-        console.log(e.keycode)
-        var invalidChars = [
-            "-",
-            "+",
-            "e",
-          ];
-        e.target.addEventListener("keydown", function(e) {
-            if (invalidChars.includes(e.key)) {
-              e.preventDefault();
-            }
-          });
-        if((e.target.name === 'value' && e.target.value != '-' && e.target.value != '+') || e.target.name === 'description'){
-            setTransactionData({ ...transactionData, [e.target.name]: e.target.value });
-        } 
+        setTransactionData({ ...transactionData, [e.target.name]: e.target.value });
     };
+
 
     function cancelTransaction(){
         let answer = true
-        console.log('entrei')
         if(transactionData.value.length !== 0 || transactionData.description.length !== 0){
            answer = window.confirm('Tem certeza que deseja cancelar a transação?');
         }

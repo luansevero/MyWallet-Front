@@ -16,7 +16,6 @@ export default function WalletTransactionsHistory({ transactions, balance }) {
                             </div>
                             <h3 className={transaction.type} type={transaction.type}>{transaction.value}</h3>
 
-                            {console.log(transaction.type === "positive")}
                         </Transaction>
                     )
                 })}
@@ -24,7 +23,7 @@ export default function WalletTransactionsHistory({ transactions, balance }) {
             <WalletBalance>
                 <>
                     <span>SALDO</span>
-                    <span>{balance}</span>
+                    <span className={balance.balanceType}>{balance.balanceValue}</span>
                 </>
             </WalletBalance>
         </>
@@ -77,7 +76,11 @@ const WalletBalance = styled.div`
     }
     span:nth-child(2){
         font-weight: 400;
+        color: #${props => props.balance < 0  ? "03AC00" : "c70000"}
     }
+    span.positive{color:#03AC00;}
+    span.negative{color:#c70000;}
+    
 `
 
 /*

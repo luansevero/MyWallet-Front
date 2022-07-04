@@ -31,7 +31,7 @@ export default function LoginForm() {
                     navigate("/wallet");
                     ;
                 }
-            } catch (error) {}};
+            } catch (error) {setIsDisable("enabled")}};
             login();
     }, [])
 
