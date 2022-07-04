@@ -59,7 +59,7 @@ export default function TransactionForm({transactionType}) {
 
     return (
         <Container className={`transactionScreen ${isDisable}`}>
-            <Form onSubmit={handleNewExit} disabled={isDisable === "disabled"}>
+            <Form onSubmit={handleNewExit} >
                 <InputBox>
                     <Input
                         haveValue={transactionData}
@@ -79,7 +79,7 @@ export default function TransactionForm({transactionType}) {
                     name="description"
                     onChange={handleInput}
                 />
-                <Button type="submit">{
+                <Button type="submit" disabled={isDisable === "disabled"}>{
                     isDisable !== "disabled"
                         ? transactionType !== 'Exit'
                             ? <h2>Salvar entrada</h2>
