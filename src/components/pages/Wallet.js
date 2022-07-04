@@ -13,7 +13,7 @@ export default function Wallet(){
     console.log(token)
     const navigate = useNavigate();
     useEffect(() => {
-        if(!token){return navigate('/login')}
+        if(!token){return navigate('/')}
         const promisse = axios.get('https://my-wallet-full-stack.herokuapp.com/wallet', token);
         promisse.then((res) => {
             setUserWallet(res.data);

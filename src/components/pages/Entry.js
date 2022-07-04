@@ -11,7 +11,7 @@ export default function Entry(){
     const navigate = useNavigate();
 
     useEffect(() => {
-        if(!token){return navigate('/login')}
+        if(!token){return navigate('/')}
     }, [])
 
     return(

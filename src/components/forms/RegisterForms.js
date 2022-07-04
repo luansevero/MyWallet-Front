@@ -26,7 +26,7 @@ export default function RegisterForm() {
                 password: registerData.password
             });
             promisse.then((res) => {
-                setTimeout(navigate('/login'), 2000);
+                setTimeout(navigate('/'), 2000);
             })
             promisse.catch((erro) => {
                 console.log(erro)

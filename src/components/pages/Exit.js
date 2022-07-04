@@ -12,7 +12,7 @@ export default function Exit(){
     const navigate = useNavigate();
 
     useEffect(() => {
-        if(!token){return navigate('/login')}
+        if(!token){return navigate('/')}
     }, [])
 
     
