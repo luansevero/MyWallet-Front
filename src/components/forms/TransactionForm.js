@@ -16,7 +16,7 @@ export default function TransactionForm({transactionType}) {
     });
     let trueValue = 0
     const [isDisable, setIsDisable] = useState("enabled");
-    const [lock, isLock] = useState(false);
+    const [lock, setIsLock] = useState(false);
     const navigate = useNavigate();
     const { token } = useContext(TokenContext);
 
