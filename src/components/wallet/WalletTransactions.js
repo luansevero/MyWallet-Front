@@ -14,7 +14,7 @@ export default function WalletTransactionsHistory({ transactions, balance }) {
                                 <span>{transaction.date}</span>
                                 <span>{transaction.description}</span>
                             </div>
-                            <h3 className={transaction.type} type={transaction.type}>{transaction.value}</h3>
+                            <h3 className={transaction.type} type={transaction.type}>{Math.abs(transaction.value).toFixed(2)}</h3>
 
                         </Transaction>
                     )
@@ -23,7 +23,7 @@ export default function WalletTransactionsHistory({ transactions, balance }) {
             <WalletBalance>
                 <>
                     <span>SALDO</span>
-                    <span className={balance.balanceType}>{balance.balanceValue}</span>
+                    <span className={balance.balanceType}>{Math.abs(balance.balanceValue).toFixed(2)}</span>
                 </>
             </WalletBalance>
         </>
