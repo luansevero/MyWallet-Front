@@ -24,19 +24,14 @@ export default function TransactionForm({transactionType}) {
         e.preventDefault();
         setIsDisable("disabled");
         let transaction = transactionData;
+        let promisse;
         if(transactionType === "positive"){
-            if(transaction.value < 0){
-                transaction.value = transaction.value * -1
-            }
+            promisse = axios.post("https://my-wallet-full-stack.herokuapp.com/wallet/entry", {...transaction, value: parseFloat(Math.abs(transaction.value).toFixed(2))}, token)
         } else {
-            if(transaction.value > 0){
-                transaction.value = transaction.value * -1
-            }
+            transaction.value = parseFloat((Math.abs(transaction.value).toFixed(2) * -1));
+            promisse = axios.post("https://my-wallet-full-stack.herokuapp.com/wallet/exit", {...transaction, value: transaction.value}, token)
         }
-
         
-        console.log(transaction.value)
-        const promisse = axios.post("http://localhost:5000/wallet/exit", {...transaction, value: Number(transaction.value)}, token)
         promisse.then((res) => {
             setIsDisable("enabled")
             navigate('/wallet')

@@ -22,7 +22,7 @@ export default function LoginForm() {
                     const userStorage = JSON.parse(localStorage.getItem('MyWallet_acc'));
                     setIsDisable("disabled");
                     setLoginData(userStorage)
-                    const response = await axios.post('http://localhost:5000/login', userStorage)
+                    const response = await axios.post('https://my-wallet-full-stack.herokuapp.com/', userStorage)
                     setToken({headers:{
                         Authorization: `Bearer ${response.data.token}`
                    }})

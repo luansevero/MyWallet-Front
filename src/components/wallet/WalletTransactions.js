@@ -7,9 +7,9 @@ export default function WalletTransactionsHistory({ transactions, balance }) {
     return (
         <>
             <WalletHistory>
-                {transactions.map((transaction) => {
+                {transactions.map((transaction, index) => {
                     return (
-                        <Transaction>
+                        <Transaction key={index + 1}>
                             <div>
                                 <span>{transaction.date}</span>
                                 <span>{transaction.description}</span>

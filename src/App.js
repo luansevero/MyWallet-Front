@@ -18,7 +18,7 @@ export default function App() {
         <TokenContext.Provider value={{setToken, token}}>
             <BrowserRouter>
                 <Routes>
-                        <Route path="/login" element={<Login />} />
+                        <Route path="/" element={<Login />} />
                         <Route path="/register" element={<Register />} />
                         <Route path="/wallet" element={<Wallet />} />
                         <Route path="/wallet/entry" element={<Entry />} />

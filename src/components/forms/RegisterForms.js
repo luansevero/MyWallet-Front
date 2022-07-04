@@ -20,7 +20,7 @@ export default function RegisterForm() {
         e.preventDefault();
         setIsDisable("disabled");
         if(registerData.password === registerData.samePassword){
-            const promisse = axios.post("http://localhost:5000/register", {
+            const promisse = axios.post('https://my-wallet-full-stack.herokuapp.com/register', {
                 name: registerData.name,
                 email: registerData.email,
                 password: registerData.password
