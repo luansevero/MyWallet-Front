@@ -7,7 +7,7 @@ export default function WalletTransactionsHistory({ transactions, balance }) {
     return (
         <>
             <WalletHistory>
-                {transactions.map((transaction, index) => {
+                {transactions.reverse().map((transaction, index) => {
                     return (
                         <Transaction key={index + 1}>
                             <div>
